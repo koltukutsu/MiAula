@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miaula/cubit/blank/user_cubit.dart';
+import 'package:miaula/ui/theme/theme.dart';
+
+import 'screens/main/main_screen.dart';
 
 class MainApp extends StatelessWidget {
   const MainApp({Key? key}) : super(key: key);
@@ -7,25 +11,20 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: const [ // remove const, fill purposes
-        // BlocProvider(
-        //     create: (context) =>
-        //         Cubit(Repository())),
-      ],
-      child: const Center(), // fill
-      // child: BlocBuilder
-      // <ThemeCubit, ThemeData>(
-      //   builder: (context, theme) => MaterialApp(
-      //     theme: darkTheme,
-      //     themeMode: ThemeMode.system,
-      //     debugShowCheckedModeBanner: false,
-      //     initialRoute: ROUTE_LOGIN,
-      //     routes: {
-      //       ROUTE_FIRST: (context) => const FirstScreen(),
-      //       ROUTE_SECOND: (context) => const SecondScreen(),
-      //     },
-      //   ),
-      // ),
-    );
+        providers: [
+          BlocProvider<UserCubit>(
+            create: (BuildContext context) => UserCubit(),
+          ),
+        ],
+      child: MaterialApp(
+      title: "MiAula",
+      theme: ThemeData(
+      backgroundColor: MiAulaTheme.background,
+      fontFamily: MiAulaTheme.fontFamily,
+      useMaterial3: true,
+      ),
+      debugShowCheckedModeBanner: false,
+      home: const MainScreen(),
+    ));
   }
 }
